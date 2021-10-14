@@ -1,0 +1,30 @@
+#!/bin/sh
+set -euf
+
+##
+# Generate a random hex fingerprint with lower case
+#
+# Usage:
+#
+#     random-hex-lower-fingerprint [n]
+#
+# Options:
+#
+#   * `n` is the number of bytes; default is 16.
+#
+# Example:
+#
+#     $ random-hex-lower-fingerprint
+#     90:93:f1:ba:59:c1:20:5a:a5:07:fa:e3:a7:5d:29:c0
+#
+# Note: 16 bytes is typical of fingerprints for SSH DSA, ECDSA, and RSA.
+#
+# This implementation uses `hexdump` and `/dev/urandom`.
+#
+# Author: Joel Parker Henderson (joel@joelparkerhenderson.com)
+# License: BSD or MIT or GPL or contact us for custom license
+# Updated: 2021-10-14T15:42:48Z
+##
+
+len=${1-16}
+hexdump -n $len -e "$len/1 \"%02x:\"" /dev/urandom | sed 's/:$//'

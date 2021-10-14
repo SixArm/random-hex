@@ -1,0 +1,27 @@
+#!/bin/sh
+set -euf
+
+##
+# Generate a random SHA-like string with hexadecimal upper case
+#
+# Usage:
+#
+#     random-hex-upper-sha-512
+#
+# Example:
+#
+#     $ random-hex-upper-sha-512
+#     8259CEB667BECB8597D83B31BE24A17A64D87DF3B4C17ECEF93A2B372D99B937…
+#
+# The SHA format is defined in FIPS PUB 180-4 and related standards.
+#
+# This script uses the commands `hexdump` and `/dev/urandom`
+# to generate secure random numbers and format them.
+#
+# Author: Joel Parker Henderson (joel@joelparkerhenderson.com)
+# License: BSD or GPL or MIT or contact us for custom license
+# Updated: 2021-10-14T15:42:48Z
+##
+
+len=128
+hexdump -n "$len" -v -e '/1 "%02X"' -e "/$len \"\n\"" /dev/urandom

@@ -1,0 +1,27 @@
+#!/bin/sh
+set -euf
+
+##
+# Generate a random SHA-like string with hexadecimal lower case
+#
+# Usage:
+#
+#     random-hex-lower-sha-512
+#
+# Example:
+#
+#     $ random-hex-lower-sha-512
+#     8259ceb667becb8597d83b31be24a17a64d87df3b4c17ecef93a2b372d99b937…
+#
+# The SHA format is defined in FIPS PUB 180-4 and related standards.
+#
+# This script uses the commands `hexdump` and `/dev/urandom`
+# to generate secure random numbers and format them.
+#
+# Author: Joel Parker Henderson (joel@joelparkerhenderson.com)
+# License: BSD or GPL or MIT or contact us for custom license
+# Updated: 2021-10-14T15:42:48Z
+##
+
+len=128
+hexdump -n "$len" -v -e '/1 "%02X"' -e "/$len \"\n\"" /dev/urandom

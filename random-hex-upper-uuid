@@ -1,0 +1,41 @@
+#!/bin/sh
+set -euf
+
+##
+# Generate a random UUID-like string with hexadecimal upper case
+#
+# Usage:
+#
+#     random-hex-upper-uuid
+#
+# Example:
+#
+#     $ random-hex-upper-uuid
+#     902DBA9D-D7BA-F8F6-7038-472D75D232E7
+#
+# The UUID format is defined in RFC 4122, ISO/IEC 9834-8:2005,
+# and related standards.
+#
+# This script generates all random numbers and formats the string;
+# this script does not attempt to use the standard, nor set any bits,
+# such as for version encoding and/or variant encoding.
+#
+# This script uses the commands `hexdump` and `/dev/urandom`
+# to generate secure random numbers and format them.
+#
+# A UUID may be represented either in uppercase or lowercase.
+# Lowercase is common in Unix; uppercase is common on Windows.
+#
+# If your system has the `uuidgen` tool, consider using it
+# instead because it's faster; use the `-r` random flag.
+#
+# Example uuidgen on Linux:
+#
+#     $ uuidgen -r
+#
+# Author: Joel Parker Henderson (joel@joelparkerhenderson.com)
+# License: BSD or GPL or MIT or contact us for custom license
+# Updated: 2021-10-14T15:42:48Z
+##
+
+hexdump -n 16 -v -e '4/1 "%02X" "-" 2/1 "%02X" "-" 2/1 "%02X" "-" 2/1 "%02X" "-" 6/1 "%02X" "\n"' /dev/urandom
